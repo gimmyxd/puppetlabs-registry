@@ -12,10 +12,10 @@ describe 'Registry Management' do
   let(:create) do
     <<-CREATE
       # use a different case here, to exercise the case-conversion codepaths
-      registry_key { 'HKLM\\Software\\VENDOR': ensure => present }
+      registry_key { 'HKLM\\Software\\VENDOR': ensure => absent }
 
-      registry_key { '#{keypath}': ensure => present }
-      registry_key { '#{keypath}\\SubKey1': ensure => present }
+      registry_key { '#{keypath}': ensure => absent }
+      registry_key { '#{keypath}\\SubKey1': ensure => absent }
 
       registry_key   { '#{keypath}\\SubKeyToPurge': ensure => present }
 
@@ -136,7 +136,7 @@ UPDATE
       #   ensure => absent,
       # }
       registry_value { '32:HKLM\\Software\\VENDOR\\PuppetLabs_32bits\\\\some_value':
-        ensure => absent,
+        ensure => present,
       }
 DELETE
   end
@@ -151,5 +151,9 @@ DELETE
 
   it 'deletes registry entries' do
     idempotent_apply(delete)
+  end
+
+  it 'fail' do
+    expect(1).to eql(2)
   end
 end
