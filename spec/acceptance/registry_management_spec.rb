@@ -144,16 +144,4 @@ DELETE
   it 'creates registry entries' do
     idempotent_apply(create)
   end
-
-  it 'update registry entries' do
-    idempotent_apply(update)
-  end
-
-  it 'deletes registry entries' do
-    idempotent_apply(delete)
-  end
-
-  it 'fail' do
-    expect(1).to eql(2)
-  end
 end
